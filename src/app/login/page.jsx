@@ -18,11 +18,15 @@ export default function Login() {
     setLoading(true);
     setMessage("");
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
+      options: {
+        flowType: "pkce",
+      },
     });
 
+    console.log(data, error, "this is  the login data ");
     if (error) {
       setMessage(error.message);
     } else {
